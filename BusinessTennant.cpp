@@ -1,0 +1,26 @@
+//
+// Created by AM on 10/20/2020.
+//
+
+#include "BusinessTennant.h"
+
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
+
+BusinessTennant::BusinessTennant(){
+    srand (time(NULL));
+    agreeability = rand() % 5 + 1;
+    monthlyBudget = rand() % 4500 + 500;
+}
+
+BusinessTennant::BusinessTennant(const BusinessTennant & in){
+    //TODO
+}
+
+BusinessTennant::~BusinessTennant(){
+    //TODO
+}
+
+BusinessTennant & BusinessTennant::operator=(const BusinessTennant & in){
+    //TODO
+}
