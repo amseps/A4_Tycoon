@@ -39,25 +39,33 @@ Tycoon &Tycoon::operator=(const Tycoon & in) {
 
 void Tycoon::runGame() {
     cout << "[WELCOME to AM's EPIC Property Tycoon!]\n\t->You have a small loan of $500,000 and a dream...\n\t->Let's win big!\n";
-    while(money < 1000000){
+    while(money < 1000000 && money > 0){
         turn_run();
     }
-    cout << "\n\n[Congratulations! You've become a millionaire!]\n\t->Turns Taken: " << turn << endl;
+    if(money < 0){
+        cout << "\n\n[Uh oh... You ran outta cash! Watch out for those loan sharks...\n\t->Turns Taken: " << turn << endl;
+    }else {
+        cout << "\n\n[Congratulations! You've become a millionaire!]\n\t->Turns Taken: " << turn << endl;
+    }
+    cout << "\n\t\t -GAME OVER-\n\n";
 }
 
 void Tycoon::generateNewPropertyList() {
     //better hope that propertyList.size = 9 :v
     for(int i = 0 ; i < 3; i++){
+        if(&residientialPropertyList[i] != nullptr) delete & residientialPropertyList[i];
         ResidentialBuilding *thisProp = new ResidentialBuilding();
         residientialPropertyList[i] = *thisProp;
 
     }
     for(int i = 0 ; i < 3; i++){
+        if(&apartmentPropertyList[i] != nullptr) delete & apartmentPropertyList[i];
         ApartmentBuilding *thisProp = new ApartmentBuilding();
         apartmentPropertyList[i] = *thisProp;
 
     }
     for(int i = 0 ; i < 3; i++){
+        if(&businessPropertyList[i] != nullptr) delete & businessPropertyList[i];
         BusinessBuilding *thisProp = new BusinessBuilding();
         businessPropertyList[i] = *thisProp;
     }
@@ -205,7 +213,80 @@ void Tycoon::collectRents() {
     }
 }
 
-void Tycoon::buyThisProperty(const Property &in) {
+//https://stackoverflow.com/questions/307765/how-do-i-check-if-an-objects-type-is-a-particular-subclass-in-c
+//next time I'mma do this wtf
+void Tycoon::buyThisProperty(const ResidentialBuilding &in) {
+    if(sizeMyResidentialProperties >= 20){
+        cout << "Already have too many Residential Properties!\n";
+    }else{
+        if(money > in.propertyValue) {
+            myResidentialProperties[sizeMyResidentialProperties++] = in;
+            money -= in.propertyValueWithEvent;
+            sumPropertyValue += in.propertyValue;
+        }else{
+            cout << "Sorry! You're too broke to buy this residence, some back when you're a little.... richer! \n";
+        }
+    }
+}
+
+void Tycoon::buyThisProperty(const BusinessBuilding &in) {
+    if(sizeMyBusinessBuildingProperties >= 20){
+        cout << "Already have too many Business Properties!\n";
+    }else{
+        if(money > in.propertyValue) {
+            myBusinessBuildingProperties[sizeMyBusinessBuildingProperties++] = in;
+            money -= in.propertyValueWithEvent;
+            sumPropertyValue += in.propertyValue;
+        }else{
+            cout << "Sorry! You're too broke to buy this business, some back when you're a little.... richer! \n";
+        }
+    }
+}
+
+void Tycoon::buyThisProperty(const ApartmentBuilding &in) {
+    if(sizeMyApartmentBuildingProperties >= 20){
+        cout << "Already have too many Business Properties!\n";
+    }else{
+        if(money > in.propertyValue) {
+            myApartmentBuildingProperties[sizeMyApartmentBuildingProperties++] = in;
+            money -= in.propertyValueWithEvent;
+            sumPropertyValue += in.propertyValue;
+        }else{
+            cout << "Sorry! You're too broke to buy this apartment, some back when you're a little.... richer! \n";
+        }
+    }
+}
+
+void Tycoon::sellResProperty(const int & index) {
+    money += myResidentialProperties[index].propertyValueWithEvent;
+    sumPropertyValue -= myResidentialProperties[index].propertyValue;
+    swap(myResidentialProperties[index] , myResidentialProperties[sizeMyResidentialProperties-1]);
+    delete  &myResidentialProperties[sizeMyResidentialProperties-1];
+    sizeMyResidentialProperties--;
+}
+
+void Tycoon::sellBusProperty(const int &index) {
+    money += myBusinessBuildingProperties[index].propertyValueWithEvent;
+    sumPropertyValue -= myBusinessBuildingProperties[index].propertyValue;
+    swap(myBusinessBuildingProperties[index] , myBusinessBuildingProperties[sizeMyBusinessBuildingProperties-1]);
+    delete  &myBusinessBuildingProperties[sizeMyBusinessBuildingProperties-1];
+    sizeMyBusinessBuildingProperties--;
+}
+
+void Tycoon::sellAptProperty(const int &index) {
+    money += myApartmentBuildingProperties[index].propertyValueWithEvent;
+    sumPropertyValue -= myApartmentBuildingProperties[index].propertyValue;
+    swap(myApartmentBuildingProperties[index] , myApartmentBuildingProperties[sizeMyBusinessBuildingProperties-1]);
+    delete  &myBusinessBuildingProperties[sizeMyBusinessBuildingProperties-1];
+    sizeMyApartmentBuildingProperties--;
+}
+
+
+void Tycoon::turn_run() {
+
+}
+
+void Tycoon::collectMonthlyMortgage() {
 
 }
 

@@ -18,6 +18,7 @@ public:
     ~ResidentialBuilding();
     ResidentialBuilding & operator=(const ResidentialBuilding & in);
 
+    void adjustRentTo(const int & in, const int & space);
 };
 
 

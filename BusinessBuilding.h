@@ -13,8 +13,11 @@ public:
     enum size{LARGE, MEDIUM, SMALL} ;
     int rooms;
     size roomSizes[5];
+    int roomRent[5];
     bool hasTennant[5];
     Tennant tennantList[5];
+
+    void adjustRentTo(const int & in, const int & space);
 
     BusinessBuilding();
     BusinessBuilding(const BusinessBuilding & in);

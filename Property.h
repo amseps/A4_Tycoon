@@ -22,6 +22,9 @@ public:
 
     int rent;
 
+    virtual void adjustRentTo(const int & in, const int & space);
+
+
     Property();
     Property(const Property & in);
     ~Property();

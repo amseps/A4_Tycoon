@@ -2,6 +2,7 @@
 // Created by AM on 10/20/2020.
 //
 
+#include <iostream>
 #include "ResidentialBuilding.h"
 #include "ResidentialTennant.h"
 
@@ -40,4 +41,23 @@ ResidentialBuilding &ResidentialBuilding::operator=(const ResidentialBuilding &i
     }
     ResidentialBuilding * newResidentialBuilding = new ResidentialBuilding(in);
     return *newResidentialBuilding;
+}
+
+void ResidentialBuilding::adjustRentTo(const int & in, const int & space = 0){
+    rent = in;
+    if(hasTennant){
+        if(myTennant.monthlyBudget < rent){
+            if(myTennant.agreeability < 2) {
+                std::cout << "\n▲The tenant here is refusing to pay rent!";
+                myTennant.willingToPay = false;
+            }else{
+                std::cout << "\n▲The tenant here has vacated the property!";
+                hasTennant = false;
+                myTennant.willingToPay = false;
+            }
+        }else{ // if now able to pay
+            std::cout << "\n▲The tenant here is willing to pay again!";
+            myTennant.willingToPay = true;
+        }
+    }
 }

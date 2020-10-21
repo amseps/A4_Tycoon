@@ -18,6 +18,8 @@ public:
     ApartmentBuilding(const ApartmentBuilding & in);
     ~ApartmentBuilding();
     ApartmentBuilding & operator=(const ApartmentBuilding & in);
+
+    void adjustRentTo(const int & in, const int & space);
 };
 
 

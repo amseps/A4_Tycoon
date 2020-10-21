@@ -40,17 +40,24 @@ private:
     int sizeMyApartmentBuildingProperties;
 
     void generateNewPropertyList();
-    void buyThisProperty(const Property & in);
-    void sellThisProperty(const Property & in);
+    void buyThisProperty(const ResidentialBuilding & in);
+    void sellResProperty(const int & index);
+    void buyThisProperty(const BusinessBuilding & in);
+    void sellBusProperty(const int & index);
+    void buyThisProperty(const ApartmentBuilding & in);
+    void sellAptProperty(const int & index);
     Property selectARandomProperty();
 
+
+    void turn_run();
+
+    void option_menu();
     void option_BuyProperty();
     void option_SellProperty();
     void option_AdjustRent();
 
-    void adjustRentTo(const Property & in, int newRent);
-
     void collectRents();
+    void collectMonthlyMortgage();
 
     void printGameInfo();
     std::string dictateLocationEnum(const Property::location & in);
@@ -64,9 +71,6 @@ private:
     void event_gentrification();
     void event_setMonthValue(const double & percentToBe, const Property::location & loc);
     void event_setMonthValue(const double & percentToBe);
-
-
-    void turn_run();
 
 public:
     void runGame();
