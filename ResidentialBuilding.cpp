@@ -14,12 +14,15 @@ ResidentialBuilding::ResidentialBuilding() {
         case 3: loc = NW; break;
     }
     propertyValue = rand() % 500000 + 100000;
+    propertyValueWithEvent = propertyValue;
     mortgageTotal = propertyValue;
     mortgageDuration = propertyValue % (rand() % 180 + 180);
     mortgageMonthly = mortgageTotal / mortgageDuration;
 
     hasTennant = true;
     myTennant = * new ResidentialTennant();
+
+    rent = 0;
 }
 
 ResidentialBuilding::ResidentialBuilding(const ResidentialBuilding &in) {

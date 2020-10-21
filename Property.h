@@ -14,10 +14,13 @@ private:
 public:
     enum location{NE, SE, SW, NW} loc;
     int propertyValue;
+    int propertyValueWithEvent;
     int mortgageTotal;
     int mortgageDuration;
     int mortgageMonthly;
     const double propertyTax = 1.5;
+
+    int rent;
 
     Property();
     Property(const Property & in);

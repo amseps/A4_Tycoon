@@ -14,6 +14,7 @@ ApartmentBuilding::ApartmentBuilding() {
         case 3: loc = NW; break;
     }
     propertyValue = rand() % 300000 + 300000;
+    propertyValueWithEvent = propertyValue;
     mortgageTotal = propertyValue;
     mortgageDuration = propertyValue % (rand() % 180 + 180);
     mortgageMonthly = mortgageTotal / mortgageDuration;
@@ -22,6 +23,7 @@ ApartmentBuilding::ApartmentBuilding() {
         hasTennant[i] = true;
         tennantList[i] = * new ResidentialTennant();
     }
+    rent = 0;
 }
 
 ApartmentBuilding::ApartmentBuilding(const ApartmentBuilding &in) {

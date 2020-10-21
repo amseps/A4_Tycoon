@@ -14,6 +14,7 @@ BusinessBuilding::BusinessBuilding() {
         case 3: loc = NW; break;
     }
     propertyValue = rand() % 200000 + 400000;
+    propertyValueWithEvent = propertyValue;
     mortgageTotal = propertyValue;
     mortgageDuration = propertyValue % (rand() % 180 + 180);
     mortgageMonthly = mortgageTotal / mortgageDuration;
@@ -27,6 +28,8 @@ BusinessBuilding::BusinessBuilding() {
         hasTennant[i] = true;
         tennantList[i] = * new BusinessTennant();
     }
+
+    rent = 0;
 }
 
 BusinessBuilding::BusinessBuilding(const BusinessBuilding &in) {
