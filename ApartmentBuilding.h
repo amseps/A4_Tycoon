@@ -17,7 +17,7 @@ public:
     ApartmentBuilding();
     ApartmentBuilding(const ApartmentBuilding & in);
     ~ApartmentBuilding();
-    ApartmentBuilding & operator=(const ApartmentBuilding & right);
+    ApartmentBuilding & operator=(const ApartmentBuilding & in);
 };
 
 

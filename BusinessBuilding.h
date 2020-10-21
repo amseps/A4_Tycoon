@@ -10,7 +10,7 @@
 
 class BusinessBuilding : public Property{
 public:
-    enum size{LARGE, MEDIUM, SMALL};
+    enum size{LARGE, MEDIUM, SMALL} ;
     int rooms;
     size roomSizes[5];
     bool hasTennant[5];
@@ -19,7 +19,7 @@ public:
     BusinessBuilding();
     BusinessBuilding(const BusinessBuilding & in);
     ~BusinessBuilding();
-    BusinessBuilding & operator=(const BusinessBuilding & right);
+    BusinessBuilding & operator=(const BusinessBuilding & in);
 };
 
 

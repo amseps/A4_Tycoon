@@ -10,12 +10,13 @@
 
 class ResidentialBuilding : public Property{
 public:
+    bool hasTennant;
     Tennant myTennant;
 
     ResidentialBuilding();
     ResidentialBuilding(const ResidentialBuilding & in);
     ~ResidentialBuilding();
-    ResidentialBuilding & operator=(const ResidentialBuilding & right);
+    ResidentialBuilding & operator=(const ResidentialBuilding & in);
 
 };
 

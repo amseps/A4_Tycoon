@@ -5,15 +5,18 @@
 #ifndef A4_TYCOON_PROPERTY_H
 #define A4_TYCOON_PROPERTY_H
 
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
 
 class Property {
 private:
 
 public:
-    enum location{NE, SE, SW, NW};
+    enum location{NE, SE, SW, NW} loc;
     int propertyValue;
-    int mortgage;
+    int mortgageTotal;
     int mortgageDuration;
+    int mortgageMonthly;
     const double propertyTax = 1.5;
 
     Property();
