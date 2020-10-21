@@ -10,6 +10,7 @@ class Tennant {
 public:
     int agreeability;
     int monthlyBudget;
+    bool willingToPay;
 
     Tennant();
     Tennant(const Tennant & in);
