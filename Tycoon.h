@@ -19,6 +19,7 @@ private:
 
     int money;
     int turn;
+    int sumPropertyValue;
 
     ResidentialBuilding residientialPropertyList[3];
     int sizeResidentialPropertyList; // set to 3
@@ -43,15 +44,16 @@ private:
     void sellThisProperty(const Property & in);
     Property selectARandomProperty();
 
-    void optionBuyProperty();
-    void optionSellProperty();
-    void optionAdjustRent();
+    void option_BuyProperty();
+    void option_SellProperty();
+    void option_AdjustRent();
 
-    void adjustRent(const Property & in, int newRent);
+    void adjustRentTo(const Property & in, int newRent);
 
     void collectRents();
 
     void printGameInfo();
+    std::string dictateLocationEnum(const Property::location & in);
 
     void randomEvent();
     void event_hurricane();
@@ -64,7 +66,7 @@ private:
     void event_setMonthValue(const double & percentToBe);
 
 
-    void runTurn();
+    void turn_run();
 
 public:
     void runGame();

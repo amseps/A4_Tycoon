@@ -12,6 +12,7 @@ ResidentialTennant::ResidentialTennant(){
     srand (time(NULL));
     agreeability = rand() % 5 + 1;
     monthlyBudget = rand() % 4500 + 500;
+    willingToPay = true;
 }
 
 ResidentialTennant::ResidentialTennant(const ResidentialTennant & in){

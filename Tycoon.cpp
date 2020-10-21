@@ -10,6 +10,7 @@ using namespace std;
 Tycoon::Tycoon() {
     money = 500000;
     turn = 0;
+    sumPropertyValue = 0;
     sizeapartmentPropertyList = 3;
     sizebusinessPropertyList = 3;
     sizebusinessPropertyList = 3;
@@ -39,7 +40,7 @@ Tycoon &Tycoon::operator=(const Tycoon & in) {
 void Tycoon::runGame() {
     cout << "[WELCOME to AM's EPIC Property Tycoon!]\n\t->You have a small loan of $500,000 and a dream...\n\t->Let's win big!\n";
     while(money < 1000000){
-        runTurn();
+        turn_run();
     }
     cout << "\n\n[Congratulations! You've become a millionaire!]\n\t->Turns Taken: " << turn << endl;
 }
@@ -90,28 +91,34 @@ void Tycoon::randomEvent() {
 }
 
 void Tycoon::event_hurricane() {
-    event_setMonthValue(.5, Property::SE)
+    cout << "\n\t▐ A Hurricane strikes the SE! Properties there lose 50% value ▐\n";
+    event_setMonthValue(.5, Property::SE);
 }
 
 void Tycoon::event_tornado() {
-    event_setMonthValue(.7, Property::NE)
+    cout << "\n\t▐ A Tornado strikes the NE! Properties there lose 30% value ▐\n";
+    event_setMonthValue(.7, Property::NE);
 }
 
 void Tycoon::event_earthquake() {
+    cout << "\n\t▐ An Earthquake strikes the NW! Properties there lose 10% value ▐\n";
     event_setMonthValue(.9, Property::NW);
 }
 
 void Tycoon::event_wildfire() {
+    cout << "\n\t▐ A Wildfire strikes the SW! Properties there lose 25% value ▐\n";
     event_setMonthValue(.75, Property::SW);
 }
 
 void Tycoon::event_stockCrash() {
+    cout << "\n\t▐ The Bogdanovs crash the stock market! All properties lose 30% value ▐\n";
     event_setMonthValue(.7);
 }
 
 void Tycoon::event_gentrification() {
     int location = rand() % 4;
     Property::location thisLoc = (Property::location)location;
+    cout << "\n\t▐ There is gentrification in the " << dictateLocationEnum(thisLoc) << ", property values there increased by 20% ▐\n";
     event_setMonthValue(1.2, thisLoc);
 }
 
@@ -155,6 +162,51 @@ void Tycoon::event_setMonthValue(const double &percentToBe) {
     for(int i = 0 ; i < sizeMyApartmentBuildingProperties; i++){
         myApartmentBuildingProperties[i].propertyValueWithEvent = percentToBe * myApartmentBuildingProperties->propertyValue;
     }
+}
+
+std::string Tycoon::dictateLocationEnum(const Property::location &in) {
+    switch(in){
+        case Property::NE:
+            return "NE";
+        case Property::SE:
+            return "SE";
+        case Property::SW:
+            return "SW";
+        case Property::NW:
+            return "NW";
+    }
+}
+
+void Tycoon::printGameInfo() {
+    cout << "♦[$" << money << "]\tcurrent bank balance\n♦[$"<<sumPropertyValue<<"]\ttotal property values\n♦["
+    <<sizeMyResidentialProperties<<"/20]\tresidences owned\n♦[" << sizeMyApartmentBuildingProperties << "/20\tapartments owned\n♦["
+    <<sizeMyBusinessBuildingProperties<<"/20]\tbusinesses owned\n\n";
+}
+
+void Tycoon::collectRents() {
+    for(int i = 0 ; i < sizeMyBusinessBuildingProperties; i++){
+        for(int g = 0 ; g < 5; i++){ // five is the number of tennants in businesses
+            if(myBusinessBuildingProperties[i].hasTennant[g] && myBusinessBuildingProperties[i].tennantList[g].willingToPay){
+                money += myBusinessBuildingProperties[i].rent;
+            }
+        }
+    }
+    for(int i = 0 ; i < sizeMyResidentialProperties; i++){
+        if(myResidentialProperties[i].hasTennant && myResidentialProperties[i].myTennant.willingToPay){
+            money += myResidentialProperties[i].rent;
+        }
+    }
+    for(int i = 0 ; i < sizeMyApartmentBuildingProperties; i++){
+        for(int g = 0 ; g < 10; i++){ // five is the number of tennants in residences
+            if(myApartmentBuildingProperties[i].hasTennant[g] && myApartmentBuildingProperties[i].tennantList[g].willingToPay){
+                money += myApartmentBuildingProperties[i].rent;
+            }
+        }
+    }
+}
+
+void Tycoon::buyThisProperty(const Property &in) {
+
 }
 
 

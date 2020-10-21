@@ -11,6 +11,7 @@
 Tennant::Tennant(){
     agreeability = 0;
     monthlyBudget = 0;
+    willingToPay = false;
 }
 
 Tennant::Tennant(const Tennant & in){
