@@ -7,7 +7,6 @@
 #include "ResidentialTennant.h"
 
 ResidentialBuilding::ResidentialBuilding() {
-    srand (time(NULL));
     switch (rand() % 4){ // is there a better way to do this?
         case 0: loc = NE; break;
         case 1: loc = SE; break;
@@ -17,13 +16,13 @@ ResidentialBuilding::ResidentialBuilding() {
     propertyValue = rand() % 500000 + 100000;
     propertyValueWithEvent = propertyValue;
     mortgageTotal = propertyValue;
-    mortgageDuration = propertyValue % (rand() % 180 + 180);
+    mortgageDuration = (rand() % 180 + 180);
     mortgageMonthly = mortgageTotal / mortgageDuration;
 
     hasTennant = true;
-    myTennant = * new ResidentialTennant();
+    myTennant = new ResidentialTennant();
 
-    rent = 0;
+    rent = 500;
 }
 
 ResidentialBuilding::ResidentialBuilding(const ResidentialBuilding &in) {
@@ -32,9 +31,8 @@ ResidentialBuilding::ResidentialBuilding(const ResidentialBuilding &in) {
 
 ResidentialBuilding::~ResidentialBuilding() {
     if(&myTennant != nullptr) {
-        Tennant * c = &myTennant;
+        Tennant * c = myTennant;
         delete c;
-        c = nullptr;
     }
 }
 
@@ -50,18 +48,18 @@ ResidentialBuilding &ResidentialBuilding::operator=(const ResidentialBuilding &i
 void ResidentialBuilding::adjustRentTo(const int & in, const int & space = 0){
     rent = in;
     if(hasTennant){
-        if(myTennant.monthlyBudget < rent){
-            if(myTennant.agreeability < 2) {
+        if(myTennant->monthlyBudget < rent){
+            if(myTennant->agreeability < 2) {
                 std::cout << "\n▲The tenant here is refusing to pay rent!";
-                myTennant.willingToPay = false;
+                myTennant->willingToPay = false;
             }else{
                 std::cout << "\n▲The tenant here has vacated the property!";
                 hasTennant = false;
-                myTennant.willingToPay = false;
+                myTennant->willingToPay = false;
             }
         }else{ // if now able to pay
             std::cout << "\n▲The tenant here is willing to pay again!";
-            myTennant.willingToPay = true;
+            myTennant->willingToPay = true;
         }
     }
 }
@@ -69,6 +67,14 @@ void ResidentialBuilding::adjustRentTo(const int & in, const int & space = 0){
 std::ostream &ResidentialBuilding::operator<<(std::ostream &_stream) {
     _stream << "[RES: " << dictateLocation() << ". Mortgage: $" << mortgageMonthly << " for " << mortgageDuration << " months. Rent: " <<rent << ", Tenant: " << hasTennant << "]";
     return _stream;
+}
+
+ResidentialBuilding::operator std::string() const {
+    return "[RES: " + dictateLocation() + ":<" + std::to_string(propertyValueWithEvent)+"/"+std::to_string(propertyValue)+"> Mortgage: $" + std::to_string(mortgageMonthly) + " for " + std::to_string(mortgageDuration) + " months. Rent: " + std::to_string(rent) + ", Tenant: " + std::to_string(hasTennant) + "]";
+}
+
+std::string ResidentialBuilding::ts() {
+    return "[RES: " + dictateLocation() + ":<" + std::to_string(propertyValueWithEvent)+"/"+std::to_string(propertyValue)+"> Mortgage: $" + std::to_string(mortgageMonthly) + " for " + std::to_string(mortgageDuration) + " months. Rent: " + std::to_string(rent) + ", Tenant: " + std::to_string(hasTennant) + "]";
 }
 
 

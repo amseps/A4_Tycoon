@@ -11,13 +11,15 @@
 class ResidentialBuilding : public Property{
 public:
     bool hasTennant;
-    Tennant myTennant;
+    Tennant * myTennant;
 
     ResidentialBuilding();
     ResidentialBuilding(const ResidentialBuilding & in);
     ~ResidentialBuilding();
+    virtual operator std::string() const;
     ResidentialBuilding & operator=(const ResidentialBuilding & in);
-    std::ostream & operator<<(std::ostream & _stream);
+    virtual std::ostream & operator<<(std::ostream & _stream);
+    std::string ts();
 
     void adjustRentTo(const int & in, const int & space);
 };

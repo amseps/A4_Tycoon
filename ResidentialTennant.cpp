@@ -9,10 +9,9 @@
 #include <time.h>       /* time */
 
 ResidentialTennant::ResidentialTennant(){
-    srand (time(NULL));
-    agreeability = rand() % 5 + 1;
-    monthlyBudget = rand() % 4500 + 500;
-    willingToPay = true;
+    Tennant::agreeability = rand() % 5 + 1;
+    Tennant::monthlyBudget = rand() % 4500 + 500;
+    Tennant::willingToPay = true;
 }
 
 ResidentialTennant::ResidentialTennant(const ResidentialTennant & in){

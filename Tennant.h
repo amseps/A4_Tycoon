@@ -15,7 +15,7 @@ public:
     Tennant();
     Tennant(const Tennant & in);
     ~Tennant();
-    Tennant & operator=(const Tennant & in);
+    Tennant & operator=(Tennant & in);
 };
 
 

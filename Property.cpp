@@ -5,8 +5,9 @@
 #include <iostream>
 #include "Property.h"
 
-Property::Property() {
 
+Property::Property() {
+    myID = propID++;
 }
 
 Property::Property(const Property &in) {
@@ -48,7 +49,7 @@ int Property::getPropertyTax() {
     return propertyTax * propertyValueWithEvent;
 }
 
-std::string Property::dictateLocation() {
+std::string Property::dictateLocation() const{
     switch(loc){
         case Property::NE:
             return "NE";
@@ -60,6 +61,23 @@ std::string Property::dictateLocation() {
             return "NW";
     }
     return "USA";
+}
+
+std::ostream &Property::operator<<(std::ostream &_stream) {
+    _stream << "[PROP]";
+    return _stream;
+}
+
+Property::operator std::string() const {
+    return "[PROP]" + dictateLocation();
+}
+
+std::string Property::ts() {
+    return "[PROP]";
+}
+
+bool Property::sameInstance(const Property &in) {
+    return this == &in;
 }
 
 

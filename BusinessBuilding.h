@@ -15,15 +15,17 @@ public:
     size roomSizes[5];
     int roomRent[5];
     bool hasTennant[5];
-    Tennant tennantList[5];
+    Tennant * tennantList[5];
 
     void adjustRentTo(const int & in, const int & space);
 
     BusinessBuilding();
     BusinessBuilding(const BusinessBuilding & in);
     ~BusinessBuilding();
-    std::ostream & operator<<(std::ostream & _stream);
-    BusinessBuilding & operator=(const BusinessBuilding & in);
+    virtual std::ostream & operator<<(std::ostream & _stream);
+    operator std::string() const;
+    virtual BusinessBuilding & operator=(const BusinessBuilding & in);
+    std::string ts();
 };
 
 

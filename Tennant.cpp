@@ -9,21 +9,22 @@
 #include <time.h>       /* time */
 
 Tennant::Tennant(){
-    agreeability = 0;
-    monthlyBudget = 0;
-    willingToPay = false;
+    Tennant::agreeability = rand() % 5 + 1;
+    Tennant::monthlyBudget = rand() % 4500 + 500;
+    Tennant::willingToPay = true;
 }
 
 Tennant::Tennant(const Tennant & in){
-    //TODO
+    this->monthlyBudget = in.monthlyBudget;
+    this->agreeability = in.agreeability;
+    this->willingToPay = in.willingToPay;
 }
 
 Tennant::~Tennant(){
-    agreeability = NULL;
-    monthlyBudget = NULL;
-    willingToPay = NULL;
+
 }
 
-Tennant & Tennant::operator=(const Tennant & in){
-    //TODO
+Tennant & Tennant::operator=(Tennant & in){
+    if(this == &in) return *this;
+    return *new Tennant(in);
 }

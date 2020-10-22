@@ -18,35 +18,40 @@ class Tycoon {
 private:
 
     int money;
+    int previous_money;
     int turn;
     int sumPropertyValue;
+    int sumMortgages;
 
-    ResidentialBuilding residientialPropertyList[3];
+    ResidentialBuilding * residientialPropertyList[3];
     int sizeResidentialPropertyList; // set to 3
 
-    BusinessBuilding businessPropertyList[3];
+    BusinessBuilding * businessPropertyList[3];
     int sizebusinessPropertyList;
 
-    ApartmentBuilding apartmentPropertyList[3];
+    ApartmentBuilding * apartmentPropertyList[3];
     int sizeapartmentPropertyList;
 
-    ResidentialBuilding myResidentialProperties[20];
+    ResidentialBuilding * myResidentialProperties[20];
     int sizeMyResidentialProperties;
 
-    BusinessBuilding myBusinessBuildingProperties[20];
+    BusinessBuilding * myBusinessBuildingProperties[20];
     int sizeMyBusinessBuildingProperties;
 
-    ApartmentBuilding myApartmentBuildingProperties[20];
+    ApartmentBuilding * myApartmentBuildingProperties[20];
     int sizeMyApartmentBuildingProperties;
 
     void generateNewPropertyList();
-    void buyThisProperty(const ResidentialBuilding & in);
-    void sellResProperty(const int & index);
-    void buyThisProperty(const BusinessBuilding & in);
+    void init_generateNewPropertyList();
+    void buyThisProperty(Property *in);
+    //void sellThisProperty(Property*in);
+    void buyThisProperty(ResidentialBuilding *in);
+    void sellResProperty(const int & index); // sell by index
+    void buyThisProperty(BusinessBuilding *in);
     void sellBusProperty(const int & index);
-    void buyThisProperty(const ApartmentBuilding & in);
+    void buyThisProperty(ApartmentBuilding *in);
     void sellAptProperty(const int & index);
-    Property selectARandomProperty();
+    void getThreeProperties(Property * someProps[3]);
 
 
     void turn_run();
@@ -59,11 +64,12 @@ private:
     void collectRents();
     void collectMonthlyMortgage();
     void collectIncomeTax();
-    void payMortgage(Property & in);
+    void payMortgage(Property * in);
 
     void printGameInfo();
     std::string dictateLocationEnum(const Property::location & in);
-    Property* getThreeLegalProperties();
+
+    int input_getLineInt();
 
     void randomEvent();
     void event_hurricane();
@@ -76,6 +82,7 @@ private:
     void event_setMonthValue(const double & percentToBe);
 
     void printMyProperties();
+    void printMyPropertiesEnumerate();
 
 public:
     void runGame();
