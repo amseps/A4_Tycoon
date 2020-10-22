@@ -32,8 +32,8 @@ Tycoon &Tycoon::operator=(const Tycoon & in) {
     if(this == &in){
         return *this;
     }
-    Tycoon newTycoon = * new Tycoon(in);
-    return newTycoon;
+    Tycoon *newTycoon = new Tycoon(in);
+    return *newTycoon;
 }
 
 
@@ -99,34 +99,34 @@ void Tycoon::randomEvent() {
 }
 
 void Tycoon::event_hurricane() {
-    cout << "\n\t▐ A Hurricane strikes the SE! Properties there lose 50% value ▐\n";
+    cout << "\n\t## A Hurricane strikes the SE! Properties there lose 50% value\n";
     event_setMonthValue(.5, Property::SE);
 }
 
 void Tycoon::event_tornado() {
-    cout << "\n\t▐ A Tornado strikes the NE! Properties there lose 30% value ▐\n";
+    cout << "\n\t## A Tornado strikes the NE! Properties there lose 30% value\n";
     event_setMonthValue(.7, Property::NE);
 }
 
 void Tycoon::event_earthquake() {
-    cout << "\n\t▐ An Earthquake strikes the NW! Properties there lose 10% value ▐\n";
+    cout << "\n\t## An Earthquake strikes the NW! Properties there lose 10% value\n";
     event_setMonthValue(.9, Property::NW);
 }
 
 void Tycoon::event_wildfire() {
-    cout << "\n\t▐ A Wildfire strikes the SW! Properties there lose 25% value ▐\n";
+    cout << "\n\t##A Wildfire strikes the SW! Properties there lose 25% value\n";
     event_setMonthValue(.75, Property::SW);
 }
 
 void Tycoon::event_stockCrash() {
-    cout << "\n\t▐ The Bogdanovs crash the stock market! All properties lose 30% value ▐\n";
+    cout << "\n\t## The Bogdanovs crash the stock market! All properties lose 30% value\n";
     event_setMonthValue(.7);
 }
 
 void Tycoon::event_gentrification() {
     int location = rand() % 4;
     Property::location thisLoc = (Property::location)location;
-    cout << "\n\t▐ There is gentrification in the " << dictateLocationEnum(thisLoc) << ", property values there increased by 20% ▐\n";
+    cout << "\n\t## There is gentrification in the " << dictateLocationEnum(thisLoc) << ", property values there increased by 20%\n";
     event_setMonthValue(1.2, thisLoc);
 }
 
@@ -183,11 +183,17 @@ std::string Tycoon::dictateLocationEnum(const Property::location &in) {
         case Property::NW:
             return "NW";
     }
+    return "USA";
 }
 
 void Tycoon::printGameInfo() {
-    cout << "♦[$" << money << "]\tcurrent bank balance\n♦[$"<<sumPropertyValue<<"]\ttotal property values\n♦["
-    <<sizeMyResidentialProperties<<"/20]\tresidences owned\n♦[" << sizeMyApartmentBuildingProperties << "/20\tapartments owned\n♦["
+    cout << "\n~[$" << money << "]\tcurrent bank balance\n~[$"<<sumPropertyValue<<"]\ttotal property values\n~["
+    <<sizeMyResidentialProperties<<"/20]\tresidences owned:\n";
+    for(int i = 0 ; i < sizeMyResidentialProperties; i++){
+        ResidentialBuilding * r =  &myResidentialProperties[i];
+        cout << ">" <<  r->dictateLocation() << " home, mortgage: " << r->mortgageMonthly << " for " << r->mortgageDuration << " months.  ";
+    }
+    cout << "\n~[" << sizeMyApartmentBuildingProperties << "/20\tapartments owned\n~["
     <<sizeMyBusinessBuildingProperties<<"/20]\tbusinesses owned\n\n";
 }
 
@@ -283,11 +289,52 @@ void Tycoon::sellAptProperty(const int &index) {
 
 
 void Tycoon::turn_run() {
+    printGameInfo();
+    randomEvent();
 
+    option_menu();
+
+    collectRents();
+    collectMonthlyMortgage();
+    if(turn++ % 12 == 0) collectIncomeTax();
 }
 
 void Tycoon::collectMonthlyMortgage() {
+    cout << "\n\t->Paying All Mortgages...";
+    for(int i = 0 ; i < sizeMyApartmentBuildingProperties; i++){
+        payMortgage(myApartmentBuildingProperties[i]);
+    }
+    for(int i = 0 ; i < sizeMyBusinessBuildingProperties; i++){
+        payMortgage(myApartmentBuildingProperties[i]);
+    }
+    for(int i = 0 ; i < sizeMyResidentialProperties; i++){
+        payMortgage(myResidentialProperties[i]);
+    }
+}
 
+void Tycoon::payMortgage(Property &in) {
+    money -= in.mortgageMonthly;
+    in.payMortgage();
+}
+
+void Tycoon::collectIncomeTax() {
+    cout << "\n\t->Paying income tax...";
+    for(int i = 0 ; i < sizeMyResidentialProperties; i++){
+        money -= myResidentialProperties[i].getPropertyTax();
+    }
+    for(int i = 0 ; i < sizeMyBusinessBuildingProperties; i++){
+        money -= myBusinessBuildingProperties[i].getPropertyTax();
+    }
+    for(int i = 0 ; i < sizeMyApartmentBuildingProperties; i++){
+        money -= myApartmentBuildingProperties[i].getPropertyTax();
+    }
+}
+
+void Tycoon::option_menu() {
+    bool notdone = true;
+    while(notdone){
+        cout << "\nTurn: [" << turn << "]\n\t>So what will you do this month?\n>\t\t[0] Buy a Property\n>\t\t[1] Sell a Property\n>\t\t[2] Adjust Rents";
+    }
 }
 
 

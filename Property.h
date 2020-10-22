@@ -18,12 +18,16 @@ public:
     int mortgageTotal;
     int mortgageDuration;
     int mortgageMonthly;
+
     const double propertyTax = 1.5;
 
     int rent;
 
     virtual void adjustRentTo(const int & in, const int & space);
+    std::string dictateLocation();
 
+    void payMortgage();
+    int getPropertyTax();
 
     Property();
     Property(const Property & in);

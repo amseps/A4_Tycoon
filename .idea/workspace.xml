@@ -13,16 +13,11 @@
   <component name="ChangeListManager">
     <list default="true" id="3defff62-45ba-4ebc-b40f-04ac6bd2e5ac" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApartmentBuilding.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ApartmentBuilding.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApartmentBuilding.h" beforeDir="false" afterPath="$PROJECT_DIR$/ApartmentBuilding.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessBuilding.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessBuilding.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessBuilding.h" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessBuilding.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Property.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Property.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Property.h" beforeDir="false" afterPath="$PROJECT_DIR$/Property.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResidentialBuilding.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ResidentialBuilding.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResidentialBuilding.h" beforeDir="false" afterPath="$PROJECT_DIR$/ResidentialBuilding.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tycoon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Tycoon.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tycoon.h" beforeDir="false" afterPath="$PROJECT_DIR$/Tycoon.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/A4_Tycoon.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/A4_Tycoon.dir/depend.make" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,6 +37,8 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Calculator_L3" />
+    <property name="settings.editor.selected.configurable" value="preferences.general" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -78,7 +75,9 @@
       <option name="presentableId" value="Default" />
       <updated>1603249936508</updated>
       <workItem from="1603249937726" duration="7661000" />
-      <workItem from="1603300666282" duration="12161000" />
+      <workItem from="1603300666282" duration="13574000" />
+      <workItem from="1603317536904" duration="2951000" />
+      <workItem from="1603325569742" duration="36000" />
     </task>
     <servers />
   </component>

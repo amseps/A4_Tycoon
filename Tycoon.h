@@ -52,12 +52,14 @@ private:
     void turn_run();
 
     void option_menu();
-    void option_BuyProperty();
-    void option_SellProperty();
-    void option_AdjustRent();
+    double option_BuyProperty();
+    double option_SellProperty();
+    double option_AdjustRent();
 
     void collectRents();
     void collectMonthlyMortgage();
+    void collectIncomeTax();
+    void payMortgage(Property & in);
 
     void printGameInfo();
     std::string dictateLocationEnum(const Property::location & in);
