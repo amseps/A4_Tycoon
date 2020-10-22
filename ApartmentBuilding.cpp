@@ -13,7 +13,7 @@ ApartmentBuilding::ApartmentBuilding() {
         case 2: loc = SW; break;
         case 3: loc = NW; break;
     }
-    propertyValue = rand() % 300000 + 300000;
+    propertyValue = (rand() % 300000) + 300000;
     propertyValueWithEvent = propertyValue;
     mortgageTotal = propertyValue;
     mortgageDuration = (rand() % 180 + 180);
@@ -50,19 +50,23 @@ ApartmentBuilding &ApartmentBuilding::operator=(const ApartmentBuilding &in) {
 
 void ApartmentBuilding::adjustRentTo(const int &in, const int &space) {
     rent = in;
-    if(hasTennant[space]) {
-        if (tennantList[space]->monthlyBudget < in) {
-            if (tennantList[space]->agreeability < 2) {
-                std::cout << "\n▲Tenant in space " << space << " is refusing to pay rent!\n";
-                tennantList[space]->willingToPay = false;
-            } else {
-                std::cout << "\n▲Tenant in space " << space << " has left the property!\n";
-                tennantList[space]->willingToPay = false;
-                hasTennant[space] = false;
+    for(int i = 0 ; i < 10; i++) {
+        if (hasTennant[i]) {
+            if (tennantList[i]->monthlyBudget < in) {
+                if (tennantList[i]->agreeability < 2) {
+                    std::cout << "\nTenant in space " << i << " is refusing to pay rent!\n";
+                    tennantList[i]->willingToPay = false;
+                } else {
+                    std::cout << "\nTenant in space " << i << " has left the property!\n";
+                    tennantList[i]->willingToPay = false;
+                    hasTennant[i] = false;
+                }
+            } else { // if there is a tenant but is refusing to pay, and rent is now less than budget
+                if (tennantList[i]->willingToPay == false) {
+                    std::cout << "\nTenant in space " << i << " is beginning to pay rent again\n";
+                    tennantList[i]->willingToPay = true;
+                }
             }
-        }else{ // if there is a tenant but is refusing to pay, and rent is now less than budget
-            std::cout << "\n▲Tenant in space " << space << " is beginning to pay rent again\n";
-            tennantList[space]->willingToPay = true;
         }
     }
 }

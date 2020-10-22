@@ -13,7 +13,7 @@ ResidentialBuilding::ResidentialBuilding() {
         case 2: loc = SW; break;
         case 3: loc = NW; break;
     }
-    propertyValue = rand() % 500000 + 100000;
+    propertyValue = (rand() % 500000) + 100000;
     propertyValueWithEvent = propertyValue;
     mortgageTotal = propertyValue;
     mortgageDuration = (rand() % 180 + 180);
@@ -50,16 +50,18 @@ void ResidentialBuilding::adjustRentTo(const int & in, const int & space = 0){
     if(hasTennant){
         if(myTennant->monthlyBudget < rent){
             if(myTennant->agreeability < 2) {
-                std::cout << "\n▲The tenant here is refusing to pay rent!";
+                std::cout << "\nThe tenant here is refusing to pay rent!";
                 myTennant->willingToPay = false;
             }else{
-                std::cout << "\n▲The tenant here has vacated the property!";
+                std::cout << "\nThe tenant here has vacated the property!";
                 hasTennant = false;
                 myTennant->willingToPay = false;
             }
         }else{ // if now able to pay
-            std::cout << "\n▲The tenant here is willing to pay again!";
-            myTennant->willingToPay = true;
+            if(myTennant->willingToPay == false) {
+                std::cout << "\nThe tenant here is willing to pay again!";
+                myTennant->willingToPay = true;
+            }
         }
     }
 }

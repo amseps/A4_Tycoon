@@ -43,15 +43,14 @@ private:
 
     void generateNewPropertyList();
     void init_generateNewPropertyList();
-    void buyThisProperty(Property *in);
-    //void sellThisProperty(Property*in);
-    void buyThisProperty(ResidentialBuilding *in);
+    bool buyThisProperty(Property *in);
+    void sellThisProperty(Property*in);
+    bool buyThisProperty(ResidentialBuilding *in);
     void sellResProperty(const int & index); // sell by index
-    void buyThisProperty(BusinessBuilding *in);
+    bool buyThisProperty(BusinessBuilding *in);
     void sellBusProperty(const int & index);
-    void buyThisProperty(ApartmentBuilding *in);
+    bool buyThisProperty(ApartmentBuilding *in);
     void sellAptProperty(const int & index);
-    void getThreeProperties(Property * someProps[3]);
 
 
     void turn_run();

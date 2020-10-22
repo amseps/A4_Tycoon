@@ -78,14 +78,14 @@ void Tycoon::generateNewPropertyList() {
     for(int i = 0 ; i < 3; i++){
         if(&residientialPropertyList[i] != nullptr) {
             ResidentialBuilding * r = residientialPropertyList[i];
-            delete r;
+            //delete r; // whatever
         }
         residientialPropertyList[i]  = new  ResidentialBuilding();
     }
     for(int i = 0 ; i < 3; i++){
         if(&apartmentPropertyList[i] != nullptr){
             ApartmentBuilding * a = apartmentPropertyList[i];
-            delete a;
+            //delete a;
         }
         ApartmentBuilding * a = new ApartmentBuilding();
         apartmentPropertyList[i] = a;
@@ -93,7 +93,7 @@ void Tycoon::generateNewPropertyList() {
     for(int i = 0 ; i < 3; i++){
         if(&businessPropertyList[i] != nullptr){
             BusinessBuilding * b = businessPropertyList[i];
-            delete b;
+            //delete b;
         }
         businessPropertyList[i] = new BusinessBuilding();
     }
@@ -209,27 +209,27 @@ void Tycoon::printGameInfo() {
 }
 
 void Tycoon::collectRents() {
-    cout << "\n\t->Collecting Rents...";
+    cout << "\n\t->Collecting Rents...\n";
     for(int i = 0 ; i < sizeMyBusinessBuildingProperties; i++){
         for(int g = 0 ; g < 5; g++){ // five is the number of tennants in businesses
             if(myBusinessBuildingProperties[i]->hasTennant[g]
             && myBusinessBuildingProperties[i]->tennantList[g]->willingToPay){
-                money += myBusinessBuildingProperties[i]->rent;
-                cout << "\n+$" << myBusinessBuildingProperties[i]->rent;
+                money += myBusinessBuildingProperties[i]->roomRent[g];
+                cout << " +$" << myBusinessBuildingProperties[i]->roomRent[g];
             }
         }
     }
     for(int i = 0 ; i < sizeMyResidentialProperties; i++){
         if(myResidentialProperties[i]->hasTennant && myResidentialProperties[i]->myTennant->willingToPay){
             money += myResidentialProperties[i]->rent;
-            cout << "\n+$" << myResidentialProperties[i]->rent;
+            cout << " +$" << myResidentialProperties[i]->rent;
         }
     }
     for(int i = 0 ; i < sizeMyApartmentBuildingProperties; i++){
         for(int g = 0 ; g < 10; g++){ // five is the number of tennants in residences
             if(myApartmentBuildingProperties[i]->hasTennant[g] && myApartmentBuildingProperties[i]->tennantList[g]->willingToPay){
                 money += myApartmentBuildingProperties[i]->rent;
-                cout << "\n+$" << myApartmentBuildingProperties[i]->rent;
+                cout << " +$" << myApartmentBuildingProperties[i]->rent;
             }
         }
     }
@@ -237,7 +237,7 @@ void Tycoon::collectRents() {
 
 //https://stackoverflow.com/questions/307765/how-do-i-check-if-an-objects-type-is-a-particular-subclass-in-c
 //dumb but I'm not trynna rewrite
-void Tycoon::buyThisProperty(Property *in) {
+bool Tycoon::buyThisProperty(Property *in) {
     if(dynamic_cast<ResidentialBuilding*>(in) != nullptr){
         buyThisProperty(dynamic_cast<ResidentialBuilding*>(in));
     }else if(dynamic_cast<ApartmentBuilding*>(in) != nullptr){
@@ -247,13 +247,15 @@ void Tycoon::buyThisProperty(Property *in) {
     }else{
         cout << "{No Sub Prop}";
     }
+    return false;
 }
 
 //https://stackoverflow.com/questions/307765/how-do-i-check-if-an-objects-type-is-a-particular-subclass-in-c
 //next time I'mma do this wtf
-void Tycoon::buyThisProperty(ResidentialBuilding *in) {
+bool Tycoon::buyThisProperty(ResidentialBuilding *in) {
     if(sizeMyResidentialProperties >= 20){
         cout << "Already have too many Residential Properties!\n";
+        return false;
     }else{
         if(money > in->propertyValue) {
             myResidentialProperties[sizeMyResidentialProperties++] = in;
@@ -263,14 +265,18 @@ void Tycoon::buyThisProperty(ResidentialBuilding *in) {
             cout << "$$SOLD$$\t" << string(*in) << endl;
             cout << "-$" << in->propertyTax * in->propertyValueWithEvent * 2 << " in sales taxes\n";
         }else{
+            return false;
             cout << "Sorry! You're too broke to buy this residence, some back when you're a little.... richer! \n";
         }
     }
+    sizeResidentialPropertyList--;
+    return true;
 }
 
-void Tycoon::buyThisProperty(BusinessBuilding *in) {
+bool Tycoon::buyThisProperty(BusinessBuilding *in) {
     if(sizeMyBusinessBuildingProperties >= 20){
         cout << "Already have too many Business Properties!\n";
+        return false;
     }else{
         if(money > in->propertyValue) {
             myBusinessBuildingProperties[sizeMyBusinessBuildingProperties++] = in;
@@ -281,13 +287,17 @@ void Tycoon::buyThisProperty(BusinessBuilding *in) {
             cout << "-$" << in->propertyTax * in->propertyValueWithEvent * 2 << " in sales taxes\n";
         }else{
             cout << "Sorry! You're too broke to buy this business, some back when you're a little.... richer! \n";
+            return false;
         }
     }
+    sizebusinessPropertyList--;
+    return true;
 }
 
-void Tycoon::buyThisProperty(ApartmentBuilding *in) {
+bool Tycoon::buyThisProperty(ApartmentBuilding *in) {
     if(sizeMyApartmentBuildingProperties >= 20){
         cout << "Already have too many Business Properties!\n";
+        return false;
     }else{
         if(money > in->propertyValue) {
             myApartmentBuildingProperties[sizeMyApartmentBuildingProperties++] = in;
@@ -298,8 +308,11 @@ void Tycoon::buyThisProperty(ApartmentBuilding *in) {
             cout << "-$" << in->propertyTax * in->propertyValueWithEvent * 2 << " in sales taxes\n";
         }else{
             cout << "Sorry! You're too broke to buy this apartment, some back when you're a little.... richer! \n";
+            return false;
         }
     }
+    sizeapartmentPropertyList--;
+    return true;
 }
 
 void Tycoon::sellResProperty(const int & index) {
@@ -308,7 +321,6 @@ void Tycoon::sellResProperty(const int & index) {
     sumPropertyValue -= myResidentialProperties[index]->propertyValue;
     sumMortgages -= myResidentialProperties[index]->mortgageTotal;
     swap(myResidentialProperties[index] , myResidentialProperties[sizeMyResidentialProperties-1]);
-    delete  &myResidentialProperties[sizeMyResidentialProperties-1];
     sizeMyResidentialProperties--;
 }
 
@@ -318,7 +330,6 @@ void Tycoon::sellBusProperty(const int &index) {
     sumPropertyValue -= myBusinessBuildingProperties[index]->propertyValue;
     sumMortgages -= myBusinessBuildingProperties[index]->mortgageTotal;
     swap(myBusinessBuildingProperties[index] , myBusinessBuildingProperties[sizeMyBusinessBuildingProperties-1]);
-    delete  &myBusinessBuildingProperties[sizeMyBusinessBuildingProperties-1];
     sizeMyBusinessBuildingProperties--;
 }
 
@@ -328,12 +339,12 @@ void Tycoon::sellAptProperty(const int &index) {
     sumPropertyValue -= myApartmentBuildingProperties[index]->propertyValue;
     sumMortgages -= myApartmentBuildingProperties[index]->mortgageTotal;
     swap(myApartmentBuildingProperties[index] , myApartmentBuildingProperties[sizeMyApartmentBuildingProperties-1]);
-    delete  &myApartmentBuildingProperties[sizeMyApartmentBuildingProperties-1];
     sizeMyApartmentBuildingProperties--;
 }
 
 
 void Tycoon::turn_run() {
+    cout << "================================================================================" << endl;
     randomEvent();
     printGameInfo();
     previous_money = money;
@@ -361,7 +372,7 @@ void Tycoon::collectMonthlyMortgage() {
 }
 
 void Tycoon::payMortgage(Property * in) {
-    cout << "-$" << in->mortgageMonthly << "\n";
+    cout << "-$" << in->mortgageMonthly << " ";
     in->mortgageTotal -= in->mortgageMonthly;
     money -= in->mortgageMonthly;
     sumMortgages -= in->mortgageMonthly;
@@ -411,40 +422,76 @@ void Tycoon::option_menu() {
 
 bool Tycoon::option_BuyProperty() {
     Property * someProps[3];
-    { // i couldn't make this into a function
+    int a[3];
+    top:
+    { // i couldn't make this into a function getThreeProperties()
         Property * someProp;
-        if(sizebusinessPropertyList + sizeapartmentPropertyList + sizeResidentialPropertyList < 3) generateNewPropertyList();
-        for(int i = 0 ; i < 3 ; i++){
+        if(sizebusinessPropertyList + sizeapartmentPropertyList + sizeResidentialPropertyList < 4) generateNewPropertyList();
+        for(int i = 0 ; i < 3 ; i++) {
             int r = rand() % 9;
-            if(r < 3 && r < sizebusinessPropertyList)
+            if(i==0) a[0] = r; //actual chimp programming
+            else if(i==1)a[1] = r;
+            else if(i==2)a[2]= r;
+            if (r < 3 && r < sizebusinessPropertyList && r >= 0){
+                if(&businessPropertyList[r] == nullptr){
+                    i--;
+                    continue;
+                }
                 someProp = businessPropertyList[r];
-            else if(r < 6 && r-3 < sizeapartmentPropertyList)
-                someProp = apartmentPropertyList[r-3];
-            else if(r < 9 && r-6 < sizeResidentialPropertyList)
-                someProp = residientialPropertyList[r-6];
-            else{
+            }
+            else if (r < 6 && r - 3 < sizeapartmentPropertyList && r >= 3) {
+                if(&apartmentPropertyList[r - 3] == nullptr){
+                    i--;
+                    continue;
+                }
+                someProp = apartmentPropertyList[r - 3];
+            }
+            else if (r < 9 && r - 6 < sizeResidentialPropertyList && r>=6) {
+                if(&residientialPropertyList[r-6] == nullptr){
+                    i--;
+                    continue;
+                }
+                someProp = residientialPropertyList[r - 6];
+            }
+            else {
                 i--;
                 continue; //smart
             }
             bool alreadyExists = false;
-            for(int g = 0 ; g < i; g++){ // genius
-                if(someProps[g] == someProp){ //why ?? not compare poitner
+            for (int g = 0; g < i; g++) { // genius
+                if (someProps[g] == someProp) { //why ?? not compare poitner
                     alreadyExists = true; //compare pointer not worke :????
                     break;
                 }
             }
-            if(alreadyExists){i--; continue;}
-            someProps[i] =  someProp;
+            if (alreadyExists) {
+                i--;
+                continue;
+            }
+            if(someProp == nullptr || someProp == NULL || &someProp == nullptr || !someProp){// if it didn't get set somehow
+                i--;
+                continue; // i was honestly about to kill myself or use a goto right here
+            }
+            someProps[i] = someProp;
+        }
     }
-    cout << "Potential Properties to Purchase: \n[0]" << string(*someProps[0]) << "\n[1]" << string(*someProps[1]) << "\n[2]" <<  string(*someProps[2]) << "\n[c] cancel\n";
+        cout << "Potential Properties to Purchase: \n[0]" << string(*someProps[0]) << "\n[1]" << string(*someProps[1])
+             << "\n[2]" << string(*someProps[2]) << "\n[c] cancel\n";
     int c = input_getLineInt();
     Property * toBuy;
+    bool sucessfulPurchase;
     while(true) {
         switch (c) {
             case 0:
             case 1:
             case 2:
-                buyThisProperty(someProps[c]);
+                sucessfulPurchase = buyThisProperty(someProps[c]);
+                if(dynamic_cast<BusinessBuilding*>(someProps[c]) != nullptr)
+                    swap(businessPropertyList[a[c]], businessPropertyList[sizebusinessPropertyList]);
+                else if(dynamic_cast<ApartmentBuilding*>(someProps[c]) != nullptr)
+                    swap(apartmentPropertyList[a[c] - 3], apartmentPropertyList[sizeapartmentPropertyList]);
+                else if(dynamic_cast<ResidentialBuilding*>(someProps[c]) != nullptr)
+                    swap(residientialPropertyList[a[c] - 6], residientialPropertyList[sizeResidentialPropertyList]);
                 break;
             default:
                 cout << endl;
@@ -452,7 +499,7 @@ bool Tycoon::option_BuyProperty() {
         }
         break;
     }
-    return true;
+    return sucessfulPurchase;
 }
 
 bool Tycoon::option_SellProperty() {
@@ -461,17 +508,40 @@ bool Tycoon::option_SellProperty() {
     int choice = input_getLineInt();
     if(choice < sizeMyResidentialProperties){
         sellResProperty(choice);
-    }else if(choice < sizeMyApartmentBuildingProperties){
+    }else if(choice < sizeMyApartmentBuildingProperties + sizeMyResidentialProperties){
         sellAptProperty(choice - sizeMyResidentialProperties);
-    }else if(choice < sizeMyBusinessBuildingProperties){
+    }else if(choice < sizeMyBusinessBuildingProperties + sizeMyApartmentBuildingProperties + sizeMyResidentialProperties){
         sellBusProperty(choice - sizeMyResidentialProperties - sizeMyApartmentBuildingProperties);
     }else{
         cout << "\nInvalid Property\n";
+        return false;
     }
     return true;
 }
 
 bool Tycoon::option_AdjustRent() {
+    printMyPropertiesEnumerate();
+    cout << "\t->Adjust rent of which property?\n";
+    int choice = input_getLineInt();
+    cout << "\t->Change rent to what value?\n";
+    int toThisRent = input_getLineInt();
+    if(choice < sizeMyResidentialProperties){
+        myResidentialProperties[choice]->adjustRentTo(toThisRent, 0);
+    }else if(choice < sizeMyResidentialProperties + sizeMyApartmentBuildingProperties){
+        myApartmentBuildingProperties[choice-sizeMyResidentialProperties]->adjustRentTo(toThisRent, 0);
+    }else if(choice < sizeMyResidentialProperties + sizeMyApartmentBuildingProperties + sizeMyBusinessBuildingProperties){
+        cout << "Rents here: \n";
+        for(int i = 0 ; i < 5 ; i++) cout << ">[" << i << "]: " << myBusinessBuildingProperties[choice-sizeMyResidentialProperties-sizeMyApartmentBuildingProperties]->roomRent[i];
+        int roomChoice = input_getLineInt();
+        if(roomChoice > 4){
+            cout <<"\ninvalid room\n";
+            return false;
+        }
+        myBusinessBuildingProperties[choice-sizeMyResidentialProperties-sizeMyApartmentBuildingProperties]->adjustRentTo(toThisRent, roomChoice);
+    }else{
+        cout << "\nInvalid Property\n";
+        return false;
+    }
     return true;
 }
 
@@ -495,17 +565,17 @@ void Tycoon::printMyProperties() {
 
 void Tycoon::printMyPropertiesEnumerate(){
     int enumerate = 0;
-    cout << "\n~[" <<sizeMyResidentialProperties<<"/20]\tresidences owned:";
+    cout << "~[" <<sizeMyResidentialProperties<<"/20]\tresidences owned:";
     for(int i = 0 ; i < sizeMyResidentialProperties; i++){
         ResidentialBuilding * r =  myResidentialProperties[i];
         cout << "\n>[" << enumerate++ << "] " <<  std::string(*r);
     }
-    cout << "\n~[" << sizeMyApartmentBuildingProperties << "/20]\tapartments owned\n";
+    cout << "\n~[" << sizeMyApartmentBuildingProperties << "/20]\tapartments owned";
     for(int i = 0 ; i < sizeMyApartmentBuildingProperties; i++){
         ApartmentBuilding * a = myApartmentBuildingProperties[i];
         cout << "\n>[" << enumerate++ << "] " << std::string(*a);
     }
-    cout << "\n~[" << sizeMyBusinessBuildingProperties << "/20]\tbusinessesOwned\n";
+    cout << "\n~[" << sizeMyBusinessBuildingProperties << "/20]\tbusinessesOwned";
     for(int i = 0 ; i < sizeMyBusinessBuildingProperties; i++){
         BusinessBuilding * b = myBusinessBuildingProperties[i];
         cout << "\n>[" << enumerate++ << "] " << std::string(*b);
@@ -520,10 +590,9 @@ int Tycoon::input_getLineInt() {
     for( int i = 0 ; i < s.length(); i++){
         if(isdigit(s[i])) nums += s[i];
     }
+    if(nums.length() < 1) return -1;
     int toRet = stoi(nums);
     return toRet;
-}
-
 }
 
 

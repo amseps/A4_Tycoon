@@ -13,7 +13,7 @@ BusinessBuilding::BusinessBuilding() {
         case 2: loc = SW; break;
         case 3: loc = NW; break;
     }
-    propertyValue = rand() % 200000 + 400000;
+    propertyValue = (rand() % 200000) + 400000;
     propertyValueWithEvent = propertyValue;
     mortgageTotal = propertyValue;
     mortgageDuration =  (rand() % 180 + 180);
@@ -58,16 +58,18 @@ void BusinessBuilding::adjustRentTo(const int &in, const int &space) {
     if(hasTennant[space]) {
         if (tennantList[space]->monthlyBudget < in) {
             if (tennantList[space]->agreeability < 2) {
-                std::cout << "\n▲Tenant in space " << space << " is refusing to pay rent!\n";
+                std::cout << "\nTenant in space " << space << " is refusing to pay rent!\n";
                 tennantList[space]->willingToPay = false;
             } else {
-                std::cout << "\n▲Tenant in space " << space << " has left the property!\n";
+                std::cout << "\nTenant in space " << space << " has left the property!\n";
                 tennantList[space]->willingToPay = false;
                 hasTennant[space] = false;
             }
         }else{ // if there is a tennant but is refusing to pay, and rent is now less than budget
-            std::cout << "\n▲Tenant in space " << space << " is beginning to pay rent again\n";
-            tennantList[space]->willingToPay = true;
+            if(tennantList[space]->willingToPay == false) {
+                std::cout << "\nTenant in space " << space << " is beginning to pay rent again\n";
+                tennantList[space]->willingToPay = true;
+            }
         }
     }
 }
@@ -78,7 +80,12 @@ std::ostream &BusinessBuilding::operator<<(std::ostream &_stream) {
 }
 
 BusinessBuilding::operator std::string() const {
-    return "[BUS: " +  dictateLocation() + ":<" + std::to_string(propertyValueWithEvent)+"/"+std::to_string(propertyValue)+"> mortgage: $" + std::to_string(mortgageMonthly) + " for " + std::to_string(mortgageDuration) + " months. Rent: " + std::to_string(rent) + "]";
+    std::string toRet= "[BUS: " +  dictateLocation() + ":<" + std::to_string(propertyValueWithEvent)+"/"+std::to_string(propertyValue)+"> mortgage: $" + std::to_string(mortgageMonthly) + " for " + std::to_string(mortgageDuration) + " months][";
+    for(int i = 0 ; i < 5; i++){
+        toRet+=std::to_string(roomRent[i]) + " ";
+    }
+    toRet += "]";
+    return toRet;
 }
 
 std::string BusinessBuilding::ts() {
