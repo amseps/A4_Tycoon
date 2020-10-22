@@ -17,7 +17,6 @@ Tycoon::Tycoon() {
     sizeMyApartmentBuildingProperties = 0;
     sizeMyBusinessBuildingProperties = 0;
     sizeMyResidentialProperties = 0;
-    generateNewPropertyList();
 }
 
 Tycoon::Tycoon(const Tycoon &in) {
@@ -53,10 +52,12 @@ void Tycoon::runGame() {
 void Tycoon::generateNewPropertyList() {
     //better hope that propertyList.size = 9 :v
     for(int i = 0 ; i < 3; i++){
-        if(&residientialPropertyList[i] != nullptr) delete & residientialPropertyList[i];
+        if(&residientialPropertyList[i] != nullptr) {
+            ResidentialBuilding * r = &residientialPropertyList[i];
+            delete r;
+        }
         ResidentialBuilding *thisProp = new ResidentialBuilding();
         residientialPropertyList[i] = *thisProp;
-
     }
     for(int i = 0 ; i < 3; i++){
         if(&apartmentPropertyList[i] != nullptr) delete & apartmentPropertyList[i];
@@ -187,14 +188,8 @@ std::string Tycoon::dictateLocationEnum(const Property::location &in) {
 }
 
 void Tycoon::printGameInfo() {
-    cout << "\n~[$" << money << "]\tcurrent bank balance\n~[$"<<sumPropertyValue<<"]\ttotal property values\n~["
-    <<sizeMyResidentialProperties<<"/20]\tresidences owned:\n";
-    for(int i = 0 ; i < sizeMyResidentialProperties; i++){
-        ResidentialBuilding * r =  &myResidentialProperties[i];
-        cout << ">" <<  r->dictateLocation() << " home, mortgage: " << r->mortgageMonthly << " for " << r->mortgageDuration << " months.  ";
-    }
-    cout << "\n~[" << sizeMyApartmentBuildingProperties << "/20\tapartments owned\n~["
-    <<sizeMyBusinessBuildingProperties<<"/20]\tbusinesses owned\n\n";
+    cout << "\n~[$" << money << "]\tcurrent bank balance\n~[$"<<sumPropertyValue<<"]\ttotal property values";
+    printMyProperties();
 }
 
 void Tycoon::collectRents() {
@@ -331,9 +326,77 @@ void Tycoon::collectIncomeTax() {
 }
 
 void Tycoon::option_menu() {
-    bool notdone = true;
-    while(notdone){
-        cout << "\nTurn: [" << turn << "]\n\t>So what will you do this month?\n>\t\t[0] Buy a Property\n>\t\t[1] Sell a Property\n>\t\t[2] Adjust Rents";
+    bool done = false;
+    string s;
+    char c;
+    cout << "\nTurn: [" << turn << "]\n\t>So what will you do this month?\n>\t\t[0] Buy a Property\n>\t\t[1] Sell a Property\n>\t\t[2] Adjust Rents\n";
+    while(!done){
+        cout << "\n>>>";
+        getline(cin , s);
+        if(s.length() < 1) continue;
+        c = s[0];
+        switch(c){
+            case '0':
+                done = option_BuyProperty();
+                break;
+            case '1':
+                done = option_SellProperty();
+                break;
+            case '2':
+                done = option_AdjustRent();
+                break;
+        }
+    }
+}
+
+bool Tycoon::option_BuyProperty() {
+    Property someProps [3];
+    bool legal[9];
+    Property * someProp;
+    for(int i = 0 ; i < 3 ; i++){
+        int r = rand() % 9;
+        if(r < 3 && r < sizebusinessPropertyList) someProp = &businessPropertyList[i];
+        else if(r < 6 && r-3 < sizeapartmentPropertyList) someProp = &apartmentPropertyList[i];
+        else if(r < 9 && r-6 < sizeResidentialPropertyList) someProp = &businessPropertyList[i];
+        else{
+            i--;
+            continue; //smart
+        }
+        bool alreadyExists = false;
+        for(int g = 0 ; g < i; g++){
+            if(&someProps[i] == someProp){
+                alreadyExists = true;
+                break;
+            }
+        }
+        if(alreadyExists){i--; continue;}
+        
+    }
+}
+
+bool Tycoon::option_SellProperty() {
+
+}
+
+bool Tycoon::option_AdjustRent() {
+    return 0;
+}
+
+void Tycoon::printMyProperties() {
+    cout << "\n~[" <<sizeMyResidentialProperties<<"/20]\tresidences owned:\n";
+    for(int i = 0 ; i < sizeMyResidentialProperties; i++){
+        ResidentialBuilding * r =  &myResidentialProperties[i];
+        cout << "\n>" <<  r->dictateLocation() << " home, mortgage: $" << r->mortgageMonthly << " for " << r->mortgageDuration << " months.  Rent: " << r->rent << ", Tenant: " << r->hasTennant;
+    }
+    cout << "\n~[" << sizeMyApartmentBuildingProperties << "/20]\tapartments owned\n";
+    for(int i = 0 ; i < sizeMyApartmentBuildingProperties; i++){
+        ApartmentBuilding * a = &myApartmentBuildingProperties[i];
+        cout << "\n>" << a->dictateLocation() << " apartment, mortgage: $" << a->mortgageMonthly << " for " << a->mortgageDuration << " months. Rent: " << a->rent;
+    }
+    cout << "\n~[" << sizeMyBusinessBuildingProperties << "/20]\tbusinessesOwned\n";
+    for(int i = 0 ; i < sizeMyBusinessBuildingProperties; i++){
+        BusinessBuilding * b = &myBusinessBuildingProperties[i];
+        cout << "\n>" << b->dictateLocation() << "business, mortgage: $" << b->mortgageMonthly << " for " << b->mortgageDuration << " months. Rent: " << b->rent;
     }
 }
 

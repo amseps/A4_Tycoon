@@ -1,8 +1,8 @@
-# Install script for directory: G:/Users/Josh/Documents/Development/A4_Tycoon
+# Install script for directory: C:/Development/A4_Tycoon
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "F:/Program Files (x86)/A4_Tycoon")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/A4_Tycoon")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "G:/Users/Josh/Documents/Development/A4_Tycoon/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Development/A4_Tycoon/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

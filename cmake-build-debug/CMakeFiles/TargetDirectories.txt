@@ -1,3 +1,3 @@
-G:/Users/Josh/Documents/Development/A4_Tycoon/cmake-build-debug/CMakeFiles/A4_Tycoon.dir
-G:/Users/Josh/Documents/Development/A4_Tycoon/cmake-build-debug/CMakeFiles/edit_cache.dir
-G:/Users/Josh/Documents/Development/A4_Tycoon/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Development/A4_Tycoon/cmake-build-debug/CMakeFiles/A4_Tycoon.dir
+C:/Development/A4_Tycoon/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Development/A4_Tycoon/cmake-build-debug/CMakeFiles/rebuild_cache.dir
