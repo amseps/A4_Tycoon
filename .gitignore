@@ -1,7 +1,8 @@
 
 .idea/workspace.xml
 .idea/*
-/cmake-build-debug/A4_Tycoon.cbp
-/cmake-build-debug/A4_Tycoon.exe
-/cmake-build-debug/cmake_install.cmake
-/cmake-build-debug/CMakeCache.txt
+cmake-build-debug/A4_Tycoon.cbp
+cmake-build-debug/A4_Tycoon.exe
+cmake-build-debug/cmake_install.cmake
+cmake-build-debug/CMakeCache.txt
+cmake-build-debug/CMakeFiles/**
