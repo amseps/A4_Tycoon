@@ -19,7 +19,9 @@ Tennant::Tennant(const Tennant & in){
 }
 
 Tennant::~Tennant(){
-    //TODO
+    agreeability = NULL;
+    monthlyBudget = NULL;
+    willingToPay = NULL;
 }
 
 Tennant & Tennant::operator=(const Tennant & in){

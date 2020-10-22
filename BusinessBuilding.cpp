@@ -39,7 +39,13 @@ BusinessBuilding::BusinessBuilding(const BusinessBuilding &in) {
 }
 
 BusinessBuilding::~BusinessBuilding() {
-
+    for(int i = 0 ; i < 5; i++){
+        if(&tennantList[i] != nullptr){
+            Tennant * c = &tennantList[i];
+            delete c;
+            c = nullptr;
+        }
+    }
 }
 
 BusinessBuilding &BusinessBuilding::operator=(const BusinessBuilding & in) {

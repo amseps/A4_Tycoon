@@ -19,9 +19,11 @@ BusinessTennant::BusinessTennant(const BusinessTennant & in){
 }
 
 BusinessTennant::~BusinessTennant(){
-    //TODO
+
 }
 
-BusinessTennant & BusinessTennant::operator=(const BusinessTennant & in){
-    //TODO
+BusinessTennant &BusinessTennant::operator=(const BusinessTennant & in){
+    if(&in == this) return *this;
+    BusinessTennant *a = new BusinessTennant(in);
+    return *a;
 }

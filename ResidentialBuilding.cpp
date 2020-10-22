@@ -31,7 +31,11 @@ ResidentialBuilding::ResidentialBuilding(const ResidentialBuilding &in) {
 }
 
 ResidentialBuilding::~ResidentialBuilding() {
-
+    if(&myTennant != nullptr) {
+        Tennant * c = &myTennant;
+        delete c;
+        c = nullptr;
+    }
 }
 
 

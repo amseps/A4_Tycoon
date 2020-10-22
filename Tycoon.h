@@ -52,9 +52,9 @@ private:
     void turn_run();
 
     void option_menu();
-    double option_BuyProperty();
-    double option_SellProperty();
-    double option_AdjustRent();
+    bool option_BuyProperty();
+    bool option_SellProperty();
+    bool option_AdjustRent();
 
     void collectRents();
     void collectMonthlyMortgage();
@@ -73,6 +73,8 @@ private:
     void event_gentrification();
     void event_setMonthValue(const double & percentToBe, const Property::location & loc);
     void event_setMonthValue(const double & percentToBe);
+
+    void printMyProperties();
 
 public:
     void runGame();

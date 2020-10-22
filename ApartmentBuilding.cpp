@@ -32,7 +32,13 @@ ApartmentBuilding::ApartmentBuilding(const ApartmentBuilding &in) {
 }
 
 ApartmentBuilding::~ApartmentBuilding() {
-
+    for(int i = 0 ; i < 10; i++){
+        if(&tennantList[i] != nullptr){
+            Tennant * c = &tennantList[i];
+            delete c;
+            c = nullptr;
+        }
+    }
 }
 
 
