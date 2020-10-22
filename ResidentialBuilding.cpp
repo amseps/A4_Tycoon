@@ -65,3 +65,24 @@ void ResidentialBuilding::adjustRentTo(const int & in, const int & space = 0){
         }
     }
 }
+
+std::ostream &ResidentialBuilding::operator<<(std::ostream &_stream) {
+    _stream << "[RES: " << dictateLocation() << ". Mortgage: $" << mortgageMonthly << " for " << mortgageDuration << " months. Rent: " <<rent << ", Tenant: " << hasTennant << "]";
+    return _stream;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

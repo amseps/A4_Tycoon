@@ -18,8 +18,10 @@ public:
     ApartmentBuilding(const ApartmentBuilding & in);
     ~ApartmentBuilding();
     ApartmentBuilding & operator=(const ApartmentBuilding & in);
+    std::ostream & operator<<(std::ostream & _stream);
 
     void adjustRentTo(const int & in, const int & space);
+
 };
 
 

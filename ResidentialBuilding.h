@@ -17,6 +17,7 @@ public:
     ResidentialBuilding(const ResidentialBuilding & in);
     ~ResidentialBuilding();
     ResidentialBuilding & operator=(const ResidentialBuilding & in);
+    std::ostream & operator<<(std::ostream & _stream);
 
     void adjustRentTo(const int & in, const int & space);
 };

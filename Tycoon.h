@@ -63,6 +63,7 @@ private:
 
     void printGameInfo();
     std::string dictateLocationEnum(const Property::location & in);
+    Property* getThreeLegalProperties();
 
     void randomEvent();
     void event_hurricane();

@@ -22,6 +22,7 @@ public:
     BusinessBuilding();
     BusinessBuilding(const BusinessBuilding & in);
     ~BusinessBuilding();
+    std::ostream & operator<<(std::ostream & _stream);
     BusinessBuilding & operator=(const BusinessBuilding & in);
 };
 

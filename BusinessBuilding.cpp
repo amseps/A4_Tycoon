@@ -75,6 +75,11 @@ void BusinessBuilding::adjustRentTo(const int &in, const int &space) {
     }
 }
 
+std::ostream &BusinessBuilding::operator<<(std::ostream &_stream) {
+    _stream << "[BUS: " <<  dictateLocation() << ", mortgage: $" << mortgageMonthly << " for " << mortgageDuration << " months. Rent: " << rent;
+    return _stream;
+}
+
 
 
 

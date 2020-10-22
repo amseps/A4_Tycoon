@@ -68,3 +68,8 @@ void ApartmentBuilding::adjustRentTo(const int &in, const int &space) {
         }
     }
 }
+
+std::ostream &ApartmentBuilding::operator<<(std::ostream &_stream) {
+    _stream << "[APT" << dictateLocation() << ", mortgage: $" << mortgageMonthly << " for " << mortgageDuration << " months. Rent: " << rent;
+    return _stream;
+}

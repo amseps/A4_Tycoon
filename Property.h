@@ -24,6 +24,7 @@ public:
     int rent;
 
     virtual void adjustRentTo(const int & in, const int & space);
+
     std::string dictateLocation();
 
     void payMortgage();
@@ -33,6 +34,7 @@ public:
     Property(const Property & in);
     ~Property();
     Property & operator=(const Property & in);
+    virtual std::ostream & operator<<(std::ostream & _stream);
 };
 
 

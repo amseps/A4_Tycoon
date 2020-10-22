@@ -12,12 +12,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3defff62-45ba-4ebc-b40f-04ac6bd2e5ac" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Property.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Property.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApartmentBuilding.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ApartmentBuilding.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApartmentBuilding.h" beforeDir="false" afterPath="$PROJECT_DIR$/ApartmentBuilding.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusinessBuilding.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessBuilding.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusinessBuilding.h" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessBuilding.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Property.h" beforeDir="false" afterPath="$PROJECT_DIR$/Property.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ResidentialBuilding.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ResidentialBuilding.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ResidentialBuilding.h" beforeDir="false" afterPath="$PROJECT_DIR$/ResidentialBuilding.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tycoon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Tycoon.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tycoon.h" beforeDir="false" afterPath="$PROJECT_DIR$/Tycoon.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/A4_Tycoon.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/A4_Tycoon.dir/depend.make" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,24 +61,26 @@
       <recent name="G:\Users\Josh\Documents\Development\A4_Tycoon" />
     </key>
   </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
   <component name="RunManager">
-    <configuration name="A4_Tycoon" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="A4_Tycoon" TARGET_NAME="A4_Tycoon" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="A4_Tycoon" RUN_TARGET_NAME="A4_Tycoon">
+    <configuration name="A4_Tycoon" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="A4_Tycoon" TARGET_NAME="A4_Tycoon" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="A4_Tycoon" RUN_TARGET_NAME="A4_Tycoon">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -100,12 +107,13 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state width="1877" height="239" key="GridCell.Tab.0.bottom" timestamp="1603347646014">
