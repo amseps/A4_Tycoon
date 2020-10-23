@@ -235,19 +235,34 @@ void Tycoon::collectRents() {
     }
 }
 
+int Tycoon::badGoodPurchase(const int &in) {
+    int r = rand() % 3;
+    switch(r){
+        case 0:
+            return in;
+        case 1:
+            cout << "\nBad purchase! Price increased";
+            return 1.1 * in;
+        case 2:
+            cout << "\nGood Deal! Price lowered";
+            return .9*in;
+    }
+    return in;
+}
+
 //https://stackoverflow.com/questions/307765/how-do-i-check-if-an-objects-type-is-a-particular-subclass-in-c
 //dumb but I'm not trynna rewrite
 bool Tycoon::buyThisProperty(Property *in) {
     if(dynamic_cast<ResidentialBuilding*>(in) != nullptr){
-        buyThisProperty(dynamic_cast<ResidentialBuilding*>(in));
+        return buyThisProperty(dynamic_cast<ResidentialBuilding*>(in));
     }else if(dynamic_cast<ApartmentBuilding*>(in) != nullptr){
-        buyThisProperty(dynamic_cast<ApartmentBuilding*>(in));
+        return buyThisProperty(dynamic_cast<ApartmentBuilding*>(in));
     }else if(dynamic_cast<BusinessBuilding*>(in) != nullptr){
-        buyThisProperty(dynamic_cast<BusinessBuilding*>(in));
-    }else{
+        return buyThisProperty(dynamic_cast<BusinessBuilding*>(in));
+    }else {
         cout << "{No Sub Prop}";
+        return false;
     }
-    return false;
 }
 
 //https://stackoverflow.com/questions/307765/how-do-i-check-if-an-objects-type-is-a-particular-subclass-in-c
@@ -259,11 +274,13 @@ bool Tycoon::buyThisProperty(ResidentialBuilding *in) {
     }else{
         if(money > in->propertyValue) {
             myResidentialProperties[sizeMyResidentialProperties++] = in;
-            money -= in->propertyValueWithEvent * in->propertyTax * 2;
+            int purchasePrice = badGoodPurchase(in->propertyValueWithEvent);
+            in->mortgageTotal = purchasePrice;
+            money -= purchasePrice * in->propertyTax * 2;
             sumPropertyValue += in->propertyValue;
             sumMortgages += in->mortgageTotal;
             cout << "$$SOLD$$\t" << string(*in) << endl;
-            cout << "-$" << in->propertyTax * in->propertyValueWithEvent * 2 << " in sales taxes\n";
+            cout << "-$" << in->propertyTax * purchasePrice * 2 << " in sales taxes\n";
         }else{
             return false;
             cout << "Sorry! You're too broke to buy this residence, some back when you're a little.... richer! \n";
@@ -280,11 +297,13 @@ bool Tycoon::buyThisProperty(BusinessBuilding *in) {
     }else{
         if(money > in->propertyValue) {
             myBusinessBuildingProperties[sizeMyBusinessBuildingProperties++] = in;
-            money -= in->propertyValueWithEvent * in->propertyTax * 2;
+            int purchasePrice = badGoodPurchase(in->propertyValueWithEvent);
+            money -= purchasePrice * in->propertyTax * 2;
+            in->mortgageTotal = purchasePrice;
             sumPropertyValue += in->propertyValue;
             sumMortgages += in->mortgageTotal;
             cout << "$$SOLD$$\t" << string(*in) << endl;
-            cout << "-$" << in->propertyTax * in->propertyValueWithEvent * 2 << " in sales taxes\n";
+            cout << "-$" << in->propertyTax * purchasePrice * 2 << " in sales taxes\n";
         }else{
             cout << "Sorry! You're too broke to buy this business, some back when you're a little.... richer! \n";
             return false;
@@ -301,11 +320,13 @@ bool Tycoon::buyThisProperty(ApartmentBuilding *in) {
     }else{
         if(money > in->propertyValue) {
             myApartmentBuildingProperties[sizeMyApartmentBuildingProperties++] = in;
-            money -= in->propertyValueWithEvent * in->propertyTax * 2;
+            int purchasePrice = badGoodPurchase(in->propertyValueWithEvent);
+            money -= purchasePrice * in->propertyTax * 2;
+            in->mortgageTotal = purchasePrice;
             sumPropertyValue += in->propertyValue;
             sumMortgages += in->mortgageTotal;
             cout << "$$SOLD$$\t" << string(*in) << endl;
-            cout << "-$" << in->propertyTax * in->propertyValueWithEvent * 2 << " in sales taxes\n";
+            cout << "-$" << in->propertyTax * purchasePrice * 2 << " in sales taxes\n";
         }else{
             cout << "Sorry! You're too broke to buy this apartment, some back when you're a little.... richer! \n";
             return false;
@@ -594,6 +615,7 @@ int Tycoon::input_getLineInt() {
     int toRet = stoi(nums);
     return toRet;
 }
+
 
 
 

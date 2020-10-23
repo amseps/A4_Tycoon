@@ -52,6 +52,8 @@ private:
     bool buyThisProperty(ApartmentBuilding *in);
     void sellAptProperty(const int & index);
 
+    int badGoodPurchase(const int & in);
+
 
     void turn_run();
 

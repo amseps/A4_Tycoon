@@ -10,7 +10,7 @@
 BusinessTennant::BusinessTennant(){
     srand (time(NULL));
     agreeability = rand() % 5 + 1;
-    monthlyBudget = rand() % 4500 + 500;
+    monthlyBudget = rand() % 8000 + 2000;
     willingToPay = true;
 }
 
